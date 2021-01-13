@@ -92,13 +92,13 @@ extension DelegateProxyTest {
 }
 #endif
 
-#if os(iOS)
-extension DelegateProxyTest {
-    func test_UIWebViewDelegateExtension() {
-        performDelegateTest(UIWebViewSubclass(frame: CGRect.zero)) { ExtendWebViewDelegateProxy(webViewSubclass: $0) }
-    }
-}
-#endif
+//#if os(iOS)
+//extension DelegateProxyTest {
+//    func test_UIWebViewDelegateExtension() {
+//        performDelegateTest(UIWebViewSubclass(frame: CGRect.zero)) { ExtendWebViewDelegateProxy(webViewSubclass: $0) }
+//    }
+//}
+//#endif
 
 extension DelegateProxyTest {
     func test_UITabBarControllerDelegateExtension() {
@@ -459,30 +459,30 @@ final class UIPickerViewSubclass2: UIPickerView, TestDelegateControl {
     }
 }
 
-final class ExtendWebViewDelegateProxy
-    : RxWebViewDelegateProxy
-    , TestDelegateProtocol {
-    init(webViewSubclass: UIWebViewSubclass) {
-        super.init(webView: webViewSubclass)
-    }
-}
+//final class ExtendWebViewDelegateProxy
+//    : RxWebViewDelegateProxy
+//    , TestDelegateProtocol {
+//    init(webViewSubclass: UIWebViewSubclass) {
+//        super.init(webView: webViewSubclass)
+//    }
+//}
 
-final class UIWebViewSubclass: UIWebView, TestDelegateControl {
-    func doThatTest(_ value: Int) {
-        (delegate as! TestDelegateProtocol).testEventHappened?(value)
-    }
-
-    var delegateProxy: DelegateProxy<UIWebView, UIWebViewDelegate> {
-        return self.rx.delegate
-    }
-
-    func setMineForwardDelegate(_ testDelegate: UIWebViewDelegate) -> Disposable {
-        return RxWebViewDelegateProxy.installForwardDelegate(testDelegate,
-                                                             retainDelegate: false,
-                                                             onProxyForObject: self)
-    }
-    
-}
+//final class UIWebViewSubclass: UIWebView, TestDelegateControl {
+//    func doThatTest(_ value: Int) {
+//        (delegate as! TestDelegateProtocol).testEventHappened?(value)
+//    }
+//
+//    var delegateProxy: DelegateProxy<UIWebView, UIWebViewDelegate> {
+//        return self.rx.delegate
+//    }
+//
+//    func setMineForwardDelegate(_ testDelegate: UIWebViewDelegate) -> Disposable {
+//        return RxWebViewDelegateProxy.installForwardDelegate(testDelegate,
+//                                                             retainDelegate: false,
+//                                                             onProxyForObject: self)
+//    }
+//
+//}
 
 #endif
 
